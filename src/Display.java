@@ -1,4 +1,5 @@
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -66,8 +67,8 @@ public class Display extends Converter {
     public void colorBar(int numOfBars)
     {
         JLabel[] bars=new JLabel[numOfBars];
-        int color=16777200;
-        int colorChange=16777000/numOfBars;
+        int color=240;
+        int colorChange=240/numOfBars;
         int i;
         for(i=0;i<numOfBars;i++)
         {
@@ -84,7 +85,7 @@ public class Display extends Converter {
         for(i=0;i<5;i++)
         {
             values[i]=new JLabel(String.valueOf(max-i*change));
-            values[i].setBounds(1050,48+i*200,100,10);
+            values[i].setBounds(1050,48+i*200,50,10);
             panel.add(values[i]);
         }
 
@@ -99,14 +100,13 @@ public class Display extends Converter {
     }
 
     public static void main(String[] args) {
-        int[][] arr=new int[40][40];
-        for(int i=0;i<40;i++)
-            for(int j=0;j<40;j++)
+        double[][] arr=new double[100][100];
+        for(int i=0;i<100;i++)
+            for(int j=0;j<100;j++)
                 arr[i][j]=i*i+j*j;
         Display d=new Display(arr);
         d.show();
         d.colorBar(100);
-
     }
 
 }
