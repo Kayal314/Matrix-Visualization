@@ -1,15 +1,21 @@
 public class Converter {
-    public int RGBToDec(int red, int blue, int green) {
-        return red * 256 * 256 + green * 256 + blue;
-    }
 
-    public int[] decToRGB(int color) {
-        int blue = color % 256;
-        color /= 256;
-        int green = color % 256;
-        color /= 256;
-        int red = color % 256;
-        return new int[]{red, green, blue};
+    public int[] decToRGB(int h_val) {
+        h_val=240-h_val;
+        int c = 1; // S = V = 100%
+        double h = h_val/60.0;
+        double x = c * (1-Math.abs(h%2 -1));
+        if(h_val<60)
+            return new int[]{c*255,(int)(x*255),0};
+        if(h_val<120)
+            return new int[]{(int)(x*255),c*255,0};
+        if(h_val<180)
+            return new int[]{0,c*255,(int)(x*255)};
+        if(h_val<240)
+            return new int[]{0,(int)(x*255),c*255};
+        if(h_val<300)
+            return new int[]{(int)(x*255),0,c*255};
+        return new int[]{c*255,0,(int)(x*255)};
     }
 
     private double[][] scaleDown(int[][] matrix) {
@@ -72,13 +78,13 @@ public class Converter {
     }
 
     private double[][] colorMatrix(double[][] matrix) {
-        final int MAX_COLOR = 16777000;
+        final int MAX_COLOR = 240; //HSV scale
         int rows = matrix.length;
         int cols = matrix[0].length;
         double[][] coloredMatrix = new double[rows][cols];
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
-                coloredMatrix[i][j] = matrix[i][j] * MAX_COLOR+ 200;
+                coloredMatrix[i][j] = matrix[i][j] * MAX_COLOR;
         return coloredMatrix;
     }
 
@@ -107,5 +113,6 @@ public class Converter {
 
     }
 }
+
 
 
